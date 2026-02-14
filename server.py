@@ -52,6 +52,22 @@ def power(complex_num, exponent):
     return result
 
 
+def format_complex(real, imag):
+    """Format complex number as a string with proper sign handling"""
+    if imag >= 0:
+        return f'{real} + {imag}i'
+    else:
+        return f'{real} - {abs(imag)}i'
+
+
+def format_complex_result(result):
+    """Format complex result with proper sign handling"""
+    if result.imag >= 0:
+        return f'{result.real:.6f} + {result.imag:.6f}i'
+    else:
+        return f'{result.real:.6f} - {abs(result.imag):.6f}i'
+
+
 def process_request(data):
     """Process client request and perform the operation"""
     try:
@@ -68,10 +84,10 @@ def process_request(data):
             return {
                 'success': True,
                 'operation': 'exponential',
-                'input': f'{real} + {imag}i',
+                'input': format_complex(real, imag),
                 'result_real': result.real,
                 'result_imag': result.imag,
-                'result_str': f'{result.real:.6f} + {result.imag:.6f}i'
+                'result_str': format_complex_result(result)
             }
         
         elif operation == 'logarithm':
@@ -79,10 +95,10 @@ def process_request(data):
             return {
                 'success': True,
                 'operation': 'logarithm',
-                'input': f'{real} + {imag}i',
+                'input': format_complex(real, imag),
                 'result_real': result.real,
                 'result_imag': result.imag,
-                'result_str': f'{result.real:.6f} + {result.imag:.6f}i'
+                'result_str': format_complex_result(result)
             }
         
         elif operation == 'power':
@@ -100,11 +116,11 @@ def process_request(data):
             return {
                 'success': True,
                 'operation': 'power',
-                'input': f'{real} + {imag}i',
+                'input': format_complex(real, imag),
                 'exponent': str(exp_value),
                 'result_real': result.real,
                 'result_imag': result.imag,
-                'result_str': f'{result.real:.6f} + {result.imag:.6f}i'
+                'result_str': format_complex_result(result)
             }
         
         else:
